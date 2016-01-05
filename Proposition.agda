@@ -45,6 +45,23 @@ data _≤_ : ℕ → ℕ → Set where
 infix 4 _≤_
 
 {-
+The z≤n constructor yields
+  z≤n {0} : 0 ≤ 0
+  z≤n {1} : 0 ≤ 1
+  ...
+and the s≤s constructor yields
+  s≤s (z≤n {0} : 0 ≤ 0) : 1 ≤ 1
+  s≤s (z≤n {1} : 0 ≤ 1) : 1 ≤ 2
+  ...
+  s≤s (s≤s ((z≤n {0} : 0 ≤ 0) : 1 ≤ 1)) : 2 ≤ 2
+  s≤s (s≤s ((z≤n {1} : 0 ≤ 1) : 1 ≤ 2)) : 2 ≤ 3
+  ...
+which means that the following propositions have proofs, since they are non-empty:
+  0 ≤ 0
+  0 ≤ 1, 1 ≤ 1
+  0 ≤ 2, 1 ≤ 2, 2 ≤ 2
+  ...
+
 1 ≤ 0 is also a valid expression which denotes an empty set, check it by C-c C-d.
 -}
 
@@ -52,7 +69,7 @@ infix 4 _≤_
 {-
 We can prove that a set is non-empty by giving an element, e.g.,
   0≤1 : 1 ≤ 10
-  0≤1 = s≤s z≤n
+  0≤1 = s≤s z≤n --; 0 ≤ 0 → 
 -}
 
 -- Proving emptiness
